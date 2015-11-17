@@ -9,6 +9,11 @@ def getBranch():
     output = subprocess.check_output('git rev-parse --abbrev-ref HEAD', shell=True)
     return output.split('\n')[0]
 
+def getFilePathRelativeToRepo(branch, filename):
+    cmd = 'git ls-tree --full-name --name-only {0} {1}'.format(branch, filename)
+    output = subprocess.check_output(cmd)
+    return output.split('\n')[0]
+
 if __name__ == '__main__':
     output = subprocess.check_output('git remote -v', shell=True)
     # Check for no git repo
